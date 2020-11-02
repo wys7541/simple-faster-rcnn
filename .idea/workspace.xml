@@ -20,9 +20,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77228925-4810-4fa4-8235-a9d47c2339eb" name="Default Changelist" comment="Establish project directory structure">
-      <change afterPath="$PROJECT_DIR$/data/dataset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/preprocess.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/util.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/faster_rcnn.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/faster_rcnn_vgg16.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/region_proposal_network.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/vgg16_roi_head.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/visualize.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/simple-faster-rcnn.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/simple-faster-rcnn.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +61,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pytorch-book-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../simple-faster-rcnn-pytorch" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -58,6 +70,127 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager" selected="Python.faster_rcnn_vgg16">
+    <configuration name="dataset" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="simple-faster-rcnn" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/dataset.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="faster_rcnn_vgg16" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="simple-faster-rcnn" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/faster_rcnn_vgg16.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="preprocess" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="simple-faster-rcnn" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/data" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/data/preprocess.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="region_proposal_network" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="simple-faster-rcnn" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/region_proposal_network.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="utils" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="simple-faster-rcnn" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/utils.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.faster_rcnn_vgg16" />
+        <item itemvalue="Python.region_proposal_network" />
+        <item itemvalue="Python.utils" />
+        <item itemvalue="Python.dataset" />
+        <item itemvalue="Python.preprocess" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -71,7 +204,18 @@
       <updated>1603843954788</updated>
       <workItem from="1603844018230" duration="988000" />
       <workItem from="1603845559263" duration="3126000" />
-      <workItem from="1603857949308" duration="2572000" />
+      <workItem from="1603857949308" duration="3484000" />
+      <workItem from="1603870216206" duration="605000" />
+      <workItem from="1603885487367" duration="4539000" />
+      <workItem from="1603937847868" duration="10716000" />
+      <workItem from="1603981008486" duration="1200000" />
+      <workItem from="1604024201782" duration="4704000" />
+      <workItem from="1604039700860" duration="2053000" />
+      <workItem from="1604041837904" duration="2027000" />
+      <workItem from="1604043927771" duration="17440000" />
+      <workItem from="1604124459283" duration="19590000" />
+      <workItem from="1604204941115" duration="14153000" />
+      <workItem from="1604297365502" duration="11830000" />
     </task>
     <task id="LOCAL-00001" summary="Establish project directory structure">
       <created>1603845726757</created>
@@ -101,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603847729823</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Establish project directory structure">
+      <created>1603869543544</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1603869543544</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -124,17 +275,75 @@
     <option name="LAST_COMMIT_MESSAGE" value="Establish project directory structure" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="195" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603870524692">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="195" y="28" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.738@0.0.1366.738" timestamp="1603870524692" />
     <state x="834" y="211" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603847586943">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="834" y="211" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.738@0.0.1366.738" timestamp="1603847586943" />
-    <state x="463" y="123" key="FileChooserDialogImpl" timestamp="1603857995010">
+    <state x="463" y="123" key="FileChooserDialogImpl" timestamp="1604124465557">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="463" y="123" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1603857995010" />
-    <state x="184" y="13" key="SettingsEditor" timestamp="1603845743604">
+    <state x="463" y="123" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1604124465557" />
+    <state width="1323" height="258" key="GridCell.Tab.0.bottom" timestamp="1604313900043">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="184" y="13" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1603845743604" />
+    <state width="1323" height="258" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1604313900043" />
+    <state width="1323" height="258" key="GridCell.Tab.0.center" timestamp="1604313900043">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="258" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1604313900043" />
+    <state width="1323" height="258" key="GridCell.Tab.0.left" timestamp="1604313900043">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="258" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1604313900043" />
+    <state width="1323" height="258" key="GridCell.Tab.0.right" timestamp="1604313900043">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="258" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1604313900043" />
+    <state width="1028" height="166" key="GridCell.Tab.1.bottom" timestamp="1604069979229">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1028" height="166" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1604069979229" />
+    <state width="1028" height="166" key="GridCell.Tab.1.center" timestamp="1604069979229">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1028" height="166" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1604069979229" />
+    <state width="1028" height="166" key="GridCell.Tab.1.left" timestamp="1604069979228">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1028" height="166" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1604069979228" />
+    <state width="1028" height="166" key="GridCell.Tab.1.right" timestamp="1604069979229">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1028" height="166" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1604069979229" />
+    <state x="184" y="13" key="SettingsEditor" timestamp="1604052381490">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="184" y="13" key="SettingsEditor/0.0.1366.738@0.0.1366.738" timestamp="1604052381490" />
+    <state x="628" y="80" width="598" height="536" key="find.popup" timestamp="1604312325497">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="628" y="80" width="598" height="536" key="find.popup/0.0.1366.738@0.0.1366.738" timestamp="1604312325497" />
+    <state x="918" y="125" key="refactoring.ChangeSignatureDialog" timestamp="1604237306424">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="918" y="125" key="refactoring.ChangeSignatureDialog/0.0.1366.738@0.0.1366.738" timestamp="1604237306424" />
+    <state x="750" y="59" width="672" height="678" key="search.everywhere.popup" timestamp="1604308593957">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="750" y="59" width="672" height="678" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1604308593957" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/simple_faster_rcnn$dataset.coverage" NAME="dataset Coverage Results" MODIFIED="1604067033386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data" />
+    <SUITE FILE_PATH="coverage/simple_faster_rcnn$visualize.coverage" NAME="visualize Coverage Results" MODIFIED="1603943199273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
+    <SUITE FILE_PATH="coverage/simple_faster_rcnn$preprocess.coverage" NAME="preprocess Coverage Results" MODIFIED="1604028672223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data" />
+    <SUITE FILE_PATH="coverage/simple_faster_rcnn$main.coverage" NAME="main Coverage Results" MODIFIED="1603870619647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/simple_faster_rcnn$utils.coverage" NAME="utils Coverage Results" MODIFIED="1604239656862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
+    <SUITE FILE_PATH="coverage/simple_faster_rcnn$test.coverage" NAME="test Coverage Results" MODIFIED="1603890916032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/simple_faster_rcnn$region_proposal_network.coverage" NAME="region_proposal_network Coverage Results" MODIFIED="1604313402498" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
+    <SUITE FILE_PATH="coverage/simple_faster_rcnn$faster_rcnn_vgg16.coverage" NAME="faster_rcnn_vgg16 Coverage Results" MODIFIED="1604313900025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
   </component>
 </project>
