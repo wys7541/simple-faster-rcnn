@@ -102,7 +102,7 @@ def loc2bbox(src_bbox, loc):
     dst_bbox[:, 3::4] = ctr_x + 0.5 * w
     return dst_bbox
 
-def NMS(boxes, scores, iou_threshold):
+def NMS(roi, score, iou_threshold):
     '''
     NMS
     :param boxes:
@@ -110,10 +110,64 @@ def NMS(boxes, scores, iou_threshold):
     :param iou_threshold:
     :return:
     '''
-    pass
+    y1 = roi[:, 0]
+    x1 = roi[:, 1]
+    y2 = roi[:, 2]
+    x2 = roi[:, 3]
+    area = (x2 - x1 + 1) * (y2 - y1 + 1)    # 每一个检测框的面积
+    order = score.argsort()[::-1]  # 按置信度降序排序
+    keep = []   # 保留的框集合
+    # 不断循环将得分最高的bbox保留同时将小于threshhold的bbox删除
+    while order.size > 0:
+        i = order[0]
+        keep.append(i)  # 保留该类剩余box中得分最高的那个
+        # 计算得到相交区域的左上和右下
+        xx1 = np.maximum(x1[i], x1[order[1:]])
+        yy1 = np.maximum(y1[i], y1[order[1:]])
+        xx2 = np.minimum(x2[i], x2[order[1:]])
+        yy2 = np.minimum(y2[i], y2[order[1:]])
+        # 计算相交的面积，不重叠时面积为0
+        w = np.maximum(0.0, xx2 - xx1 + 1)
+        h = np.maximum(0.0, yy2 - yy1 + 1)
+        inter = w * h
+        # 计算IOU
+        ovr = inter / (area[i] + area[order[1:]] - inter)
+        # 保留小于threshhold的bbox
+        inds = np.where(ovr <=iou_threshold)[0]
+        # 因为ovr数组的长度比order数组少一个,所以这里要将所有下标后移一位
+        order = order[inds + 1]
+    return keep
+
+"""
+tools to convert specified type
+"""
+def tonumpy(data):
+    if isinstance(data, np.ndarray):
+        return data
+    if isinstance(data, torch.Tensor):
+        return data.detach().cpu().numpy()
+
+
+def totensor(data, cuda=False):
+    if isinstance(data, np.ndarray):
+        tensor = torch.from_numpy(data)
+    if isinstance(data, torch.Tensor):
+        tensor = data.detach()
+    if cuda:
+        tensor = tensor.cuda()
+    return tensor
+
+
+def scalar(data):
+    if isinstance(data, np.ndarray):
+        return data.reshape(1)[0]
+    if isinstance(data, torch.Tensor):
+        return data.item()
+
 
 
 if __name__ == '__main__':
     anchor_base = generate_anchor_base()
     anchor = enumerate_shifted_anchor(anchor_base, 16, 20, 30)
     print(anchor.shape)
+

@@ -37,7 +37,13 @@ class RegionProposalNetwork(nn.Module):
         :param x: (~torch.autograd.Variable) (N, C, H, W)
         :param img_size: (tuple of ints) (height, width)
         :param scale: (list of float) (height / ori_height, width / ori_width)
-        :return:
+        :return:rpn_locs, rpn_scores, rois, roi_indices, anchor
+            Args:(~torch.autograd.Variable, ~torch.autograd.Variable, array, array, array)
+                rpn_locs([1, N, 4]): 对anchor的预测边界框偏移和比例
+                rpn_scores([1, N, 2]): anchor negtive和postive的概率
+                rois([M, 4]): 候选区坐标
+                roi_indices([M,]): 包含ROI对应的图像索引的数组
+                anchor([N, 4]): anchor的
         '''
         n, _, hh, ww = x.shape
         print(x.shape)
@@ -61,18 +67,19 @@ class RegionProposalNetwork(nn.Module):
         rpn_scores = rpn_scores.view(n, -1, 2)          # ([1, 5400, 2])
 
         rois = list()
-        rois_indices = list()
+        # 包含ROI对应的图像索引的数组
+        roi_indices = list()
         for i in range(n):
             roi = self.proposal_layer(rpn_locs[i].cpu().data.numpy(),
                                       rpn_pos_scores[i].cpu().data.numpy(),
                                       anchor, img_size, scale)
-            print(roi)
-        exit(0)
-
-
-
-
-
+            batch_index = i * np.ones((len(roi),), dtype=np.int32)
+            rois.append(roi)
+            roi_indices.append(batch_index)
+        rois = np.concatenate(rois, axis=0) # 列表水平拼接, 用于batch_size>1时
+        roi_indices = np.concatenate(roi_indices, axis=0)
+        print("rpn return:",rpn_locs.shape, rpn_scores.shape, rois.shape, roi_indices.shape, anchor.shape)
+        return rpn_locs, rpn_scores, rois, roi_indices, anchor
 
 class ProposalCreator:
     '''调用此类生成候选区
@@ -97,19 +104,18 @@ class ProposalCreator:
         self.n_test_pre_nms = n_test_pre_nms
         self.n_test_post_nms = n_test_post_nms
         self.min_size = min_size
-        print("self.n_train_pre_nms:", n_train_pre_nms)
 
     def __call__(self, loc, score, anchor, img_size, scale):
         '''
-
+        返回生成的候选区
         :param loc: 对anchor的预测边界框偏移和比例
         :param score: anchor是正例的概率
         :param anchor: 通过枚举得到的所有anchor的坐标
         :param img_size: 图片大小
         :param scale: 宽高缩放倍数
         :return:
+            ndarray numpy (N, 4) proposal bbox 的坐标
         '''
-        print(self.n_train_pre_nms)
         if opt.mode == 'train':
             n_pre_nms = self.n_train_pre_nms
             n_post_nms = self.n_train_post_nms
@@ -131,18 +137,19 @@ class ProposalCreator:
         # (proposal, score)对按分数降序排序
         order = score.ravel().argsort()[::-1]
         # 取前n_pre_nms的(proposal, score)
-        print(n_pre_nms)
         if n_pre_nms > 0:
             order = order[:n_pre_nms]
         roi = roi[order, :]
         score = score[order]
+
         # 使用NMS(threshold=0.7)
-
-        print(roi.shape, score.shape)
-
-        print(keep.shape)
-
-        exit(0)
+        keep = NMS(roi, score, self.nms_thresh)
+        # 取前n_post_nms的(proposal, score)
+        if n_post_nms > 0:
+            keep = keep[:n_post_nms]
+        roi = roi[keep]
+        print("roi：", roi.shape)
+        return roi
 
 
 

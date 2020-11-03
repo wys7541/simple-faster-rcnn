@@ -17,9 +17,11 @@ class FasterRCNN(nn.Module):
         '''
         img_size = x.shape[2:]
         print("img_size:", img_size)
+        # 特征提取
         h = self.extractor(x)
+        # RPN
         rpn_locs, rpn_scores, rois, roi_indices, anchor = self.rpn(h, img_size, scale)
-        return rpn_locs, rpn_scores, rois, roi_indices, anchor
-
+        # ROIHead
         roi_cls_locs, roi_scores = self.head(h, rois, roi_indices)
+
         return roi_cls_locs, roi_scores, rois, roi_indices

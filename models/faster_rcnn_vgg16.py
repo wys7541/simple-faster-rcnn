@@ -57,8 +57,12 @@ class FasterRCNNVGG16(FasterRCNN):
             anchor_scales=anchor_scales,
             feat_stride=self.feat_stride
         )
-        # head = VGG16RoIHead()
-        head = None
+        head = VGG16RoIHead(
+            n_class = n_classes,
+            roi_size = 7,
+            spatial_scale=(1. / self.feat_stride),
+            classifier=classifier
+        )
         super(FasterRCNNVGG16, self).__init__(
             extractor,
             rpn,
@@ -74,7 +78,7 @@ if __name__ == '__main__':
     for i, data in enumerate(train_loader):
         scale = [data[3][0].numpy()[0], data[3][1].numpy()[0]]
         result = model(data[0], scale)
-        print(result)
+
         exit(0)
     #     print(result.size())
     #     # print(result[0][0])
