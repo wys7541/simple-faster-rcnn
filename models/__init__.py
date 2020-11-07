@@ -1,3 +1,5 @@
 from models.faster_rcnn import FasterRCNN
 from models.region_proposal_network import RegionProposalNetwork
 from models.vgg16_roi_head import VGG16RoIHead
+from models.faster_rcnn_vgg16 import FasterRCNNVGG16
+from models.target_creator import AnchorTargetCreator, ProposalTargetCreator

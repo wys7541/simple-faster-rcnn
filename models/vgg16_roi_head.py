@@ -50,5 +50,7 @@ class VGG16RoIHead(nn.Module):
         fc7 = self.classifier(pool)
         roi_cls_locs = self.cls_loc(fc7)
         roi_scores = self.score(fc7)
-        print("ROIHead return :", roi_cls_locs.size(), roi_scores.size())
+        print("ROIHead return :")
+        print("roi_cls_locs.size:", roi_cls_locs.size())
+        print("roi_scores.size:", roi_scores.size())
         return roi_cls_locs, roi_scores

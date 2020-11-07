@@ -1,12 +1,19 @@
 import torch
 import torch.nn as nn
+from config import opt
 
 class FasterRCNN(nn.Module):
-    def __init__(self, extractor, rpn, head):
+    def __init__(self, extractor, rpn, head,
+                 loc_normalize_mean=(0., 0., 0., 0.),
+                 loc_normalize_std=(0.1, 0.1, 0.2, 0.2)):
         super(FasterRCNN, self).__init__()
         self.extractor = extractor
         self.rpn = rpn
         self.head = head
+
+        # mean std
+        self.loc_normalize_mean = loc_normalize_mean
+        self.loc_normalize_std = loc_normalize_std
 
     def forward(self, x, scale=[1., 1.]):
         '''
@@ -25,3 +32,21 @@ class FasterRCNN(nn.Module):
         roi_cls_locs, roi_scores = self.head(h, rois, roi_indices)
 
         return roi_cls_locs, roi_scores, rois, roi_indices
+
+    def get_optimizer(self):
+        '''
+        :return: 返回一个优化器，或者重写一个优化器
+        '''
+        lr = opt.lr
+        params = []
+        for key, value in dict(self.named_parameters()).items():
+            if value.requires_grad:
+                if 'bias' in key:
+                    params += [{'params': [value], 'lr': lr * 2, 'weight_decay': 0}]
+                else:
+                    params += [{'params': [value], 'lr': lr, 'weight_decay': opt.weight_decay}]
+        if opt.use_adam:
+            self.optimizer = torch.optim.Adam(params)
+        else:
+            self.optimizer = torch.optim.SGD(params, momentum=0.9)
+        return self.optimizer

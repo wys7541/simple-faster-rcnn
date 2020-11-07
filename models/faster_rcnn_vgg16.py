@@ -6,12 +6,6 @@ from models import FasterRCNN
 from models import RegionProposalNetwork
 from models import VGG16RoIHead
 
-
-# test
-from torch.utils.data import DataLoader, Dataset
-from data.dataset import MyDataset
-from torchvision import transforms
-
 def decom_vgg16():
     '''用vgg16特征提取, 返回特征提取器和分类器'''
     if opt.caffe_pretrain:
@@ -68,30 +62,3 @@ class FasterRCNNVGG16(FasterRCNN):
             rpn,
             head
         )
-
-
-if __name__ == '__main__':
-    train_data = MyDataset(opt)
-    train_loader = DataLoader(dataset=train_data, batch_size=1, shuffle=False, num_workers = 2)
-    model = FasterRCNNVGG16()
-
-    for i, data in enumerate(train_loader):
-        scale = [data[3][0].numpy()[0], data[3][1].numpy()[0]]
-        result = model(data[0], scale)
-
-        exit(0)
-    #     print(result.size())
-    #     # print(result[0][0])
-    #     # print(data)
-    #     # print(data[0].size())
-    #     # print(data[1].size())
-    #     # print(data[2].size())
-    #     # print(len(data[3]))
-
-# if __name__ == '__main__':
-#     # print(decom_vgg16())
-#     f, m = decom_vgg16()
-#     for i in range(len(f)):
-#         print(f[i])
-#     for i in range(len(m)):
-#         print(m[i])

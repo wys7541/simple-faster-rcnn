@@ -4,7 +4,7 @@ import numpy as np
 def generate_anchor_base(base_size=16, ratios=[0.5, 1, 2],
                          anchor_scales=[8, 16, 32]):
     '''
-    通过枚举纵横比和比例生成bbox
+    通过枚举纵横比和比例生成anchor
     :param base_size: 基本长度
     :param ratios: anchors的宽高比
     :param anchor_scales: 窗口的缩放倍数
@@ -102,6 +102,36 @@ def loc2bbox(src_bbox, loc):
     dst_bbox[:, 3::4] = ctr_x + 0.5 * w
     return dst_bbox
 
+def bbox2loc(src_bbox, dst_bbox):
+    '''
+    给定边界框和目标边界框，此函数计算两者间的偏移和比例
+    :param src_bbox: (N, 4) p_{ymin}, p_{xmin}, p_{ymax}, p_{xmax}
+    :param dst_bbox: (N, 4) g_{ymin}, g_{xmin}, g_{ymax}, g_{xmax}
+    :return:
+        Bounding box offsets and scales: (N, 4)
+    '''
+    height = src_bbox[:, 2] - src_bbox[:, 0]
+    width = src_bbox[:, 3] - src_bbox[:, 1]
+    ctr_y = src_bbox[:, 0] + height * 0.5
+    ctr_x = src_bbox[:, 1] + width * 0.5
+
+    base_height = dst_bbox[:, 2] - dst_bbox[:, 0]
+    base_width = dst_bbox[:, 3] - dst_bbox[:, 1]
+    base_ctr_y = dst_bbox[:, 0] + base_height * 0.5
+    base_ctr_x = dst_bbox[:, 1] + base_width * 0.5
+
+    eps = np.finfo(height.dtype).eps
+    height = np.maximum(height, eps)
+    width = np.maximum(width, eps)
+
+    dy = (base_ctr_y - ctr_y) / height
+    dx = (base_ctr_x - ctr_x) / width
+    dh = np.log(base_height / height)
+    dw = np.log(base_width / width)
+    loc = np.vstack((dy, dx, dh, dw)).transpose()
+    return loc
+
+
 def NMS(roi, score, iou_threshold):
     '''
     NMS
@@ -117,7 +147,7 @@ def NMS(roi, score, iou_threshold):
     area = (x2 - x1 + 1) * (y2 - y1 + 1)    # 每一个检测框的面积
     order = score.argsort()[::-1]  # 按置信度降序排序
     keep = []   # 保留的框集合
-    # 不断循环将得分最高的bbox保留同时将小于threshhold的bbox删除
+    # 不断循环将得分最高的roi保留同时将小于threshhold的roi删除
     while order.size > 0:
         i = order[0]
         keep.append(i)  # 保留该类剩余box中得分最高的那个
@@ -132,7 +162,7 @@ def NMS(roi, score, iou_threshold):
         inter = w * h
         # 计算IOU
         ovr = inter / (area[i] + area[order[1:]] - inter)
-        # 保留小于threshhold的bbox
+        # 保留小于threshhold的roi
         inds = np.where(ovr <=iou_threshold)[0]
         # 因为ovr数组的长度比order数组少一个,所以这里要将所有下标后移一位
         order = order[inds + 1]
@@ -164,6 +194,28 @@ def scalar(data):
     if isinstance(data, torch.Tensor):
         return data.item()
 
+def bbox_iou(rois, bbox):
+    '''计算各个roi与gt_bbox间的iou'''
+    if rois.shape[1] !=4 or bbox.shape[1] != 4:
+        raise IndexError
+    ious = np.empty((len(rois), len(bbox)), dtype=np.float32)
+    for i, roi in enumerate(rois):
+        ya1, xa1, ya2, xa2 = roi
+        anchor_area = (ya2 - ya1) * (xa2 - xa1)
+        for j, box in enumerate(bbox):
+            yb1, xb1, yb2, xb2 = box
+            box_area = (ya2 - yb1) * (xb2 - xb1)
+            inter_x1 = max([xb1, xa1])
+            inter_y1 = max([yb1, ya1])
+            inter_x2 = min([xb2, xa2])
+            inter_y2 = min([yb2, ya2])
+            if (inter_x1 < inter_x2) and (inter_y1 < inter_y2):
+                iter_area = (inter_y2 - inter_y1) * (inter_x2 - inter_x1)
+                iou = iter_area / (anchor_area + box_area - iter_area)
+            else:
+                iou = 0.
+            ious[i, j] = iou
+    return ious
 
 
 if __name__ == '__main__':

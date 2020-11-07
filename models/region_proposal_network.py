@@ -78,7 +78,12 @@ class RegionProposalNetwork(nn.Module):
             roi_indices.append(batch_index)
         rois = np.concatenate(rois, axis=0) # 列表水平拼接, 用于batch_size>1时
         roi_indices = np.concatenate(roi_indices, axis=0)
-        print("rpn return:",rpn_locs.shape, rpn_scores.shape, rois.shape, roi_indices.shape, anchor.shape)
+        print("rpn return:")
+        print("rpn_locs.shape:", rpn_locs.shape)
+        print("rpn_scores.shape:", rpn_scores.shape)
+        print("rois.shape:",rois.shape)
+        print("roi_indices.shape:", roi_indices.shape)
+        print("anchor.shape:", anchor.shape)
         return rpn_locs, rpn_scores, rois, roi_indices, anchor
 
 class ProposalCreator:
@@ -148,7 +153,7 @@ class ProposalCreator:
         if n_post_nms > 0:
             keep = keep[:n_post_nms]
         roi = roi[keep]
-        print("roi：", roi.shape)
+        print("roi.shape：", roi.shape)
         return roi
 
 
