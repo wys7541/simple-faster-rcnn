@@ -2,11 +2,19 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 from data.dataset import MyDataset
+from torch.nn import functional as F
+from collections import namedtuple
 from config import opt
 from models import FasterRCNNVGG16, AnchorTargetCreator, ProposalTargetCreator
 from models.utils import *
 from models.loss import *
 
+LossTuple = namedtuple('LossTuple',
+                       ['rpn_loc_loss',
+                        'rpn_cls_loss',
+                        'roi_loc_loss',
+                        'roi_cls_loss',
+                        'total_loss'])
 
 class FasterRCNNTrainer(nn.Module):
     '''
@@ -25,6 +33,7 @@ class FasterRCNNTrainer(nn.Module):
         self.loc_normalize_std = faster_rcnn.loc_normalize_std
 
         self.optimizer = self.faster_rcnn.get_optimizer()
+
 
     def forward(self, imgs, bboxes, labels, scale):
         '''
@@ -53,7 +62,7 @@ class FasterRCNNTrainer(nn.Module):
         # 因为batch_size为1， 将变量转换成单数形式
         bbox = bboxes[0]
         label = labels[0]
-        rpn_scores = rpn_scores[0]
+        rpn_score = rpn_scores[0]
         rpn_loc = rpn_locs[0]
         roi = rois
 
@@ -78,22 +87,47 @@ class FasterRCNNTrainer(nn.Module):
             anchor,
             img_size)
         gt_rpn_label = totensor(gt_rpn_label).long()
-        gt_rpn_loc = totensor(gt_roi_loc)
+        gt_rpn_loc = totensor(gt_rpn_loc)
         rpn_loc_loss = fast_rcnn_loc_loss(
             rpn_loc,
             gt_rpn_loc,
             gt_rpn_label.data,
             self.rpn_sigma)
+        print("rpn_loc_loss:", rpn_loc_loss)
+        # rpn_cls_loss计算时忽略label=-1的anchor
+        rpn_cls_loss = F.cross_entropy(rpn_score, gt_rpn_label, ignore_index=-1)
+        print("rpn_cls_loss:", rpn_cls_loss)
 
+        #------------------- ROI losses (fast rcnn loss) ----------#
+        n_sample = roi_cls_loc.shape[0]
+        roi_cls_loc = roi_cls_loc.view(n_sample, -1, 4)
+        roi_loc = roi_cls_loc[torch.arange(0, n_sample).long(),
+                            totensor(gt_roi_label).long()]
+        gt_roi_label = totensor(gt_roi_label).long()
+        gt_roi_loc = totensor(gt_roi_loc)
 
+        roi_loc_loss = fast_rcnn_loc_loss(
+            roi_loc.contiguous(),
+            gt_roi_loc,
+            gt_roi_label.data,
+            self.roi_sigma)
+
+        roi_cls_loss = nn.CrossEntropyLoss()(roi_score, gt_roi_label)
+        print("roi_loc_loss:", roi_loc_loss)
+        print("roi_cls_loss:", roi_cls_loss)
+
+        losses = [rpn_loc_loss, rpn_cls_loss, roi_loc_loss, roi_cls_loss]
+        losses = losses + [sum(losses)]
+
+        return LossTuple(*losses)
 
 
     def train_step(self, imgs, bboxes, labels, scale):
         self.optimizer.zero_grad()
         losses = self.forward(imgs, bboxes, labels, scale)
-
-        exit(0)
-
+        losses.total_loss.backward()
+        self.optimizer.step()
+        return losses
 
 
 
@@ -106,6 +140,5 @@ if __name__ == '__main__':
     for epoch in range(opt.epoch):
         for ii, (img, bbox, label, scale) in enumerate(train_loader):
             scale = [scale[0].numpy()[0], scale[1].numpy()[0]]
-            trainer.train_step(img, bbox, label, scale)
-
-            exit(0)
+            losses = trainer.train_step(img, bbox, label, scale)
+            print(losses.total_loss)
