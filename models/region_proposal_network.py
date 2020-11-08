@@ -1,7 +1,6 @@
-import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from config import opt
+from utils.config import opt
 from models.utils import *
 
 class RegionProposalNetwork(nn.Module):

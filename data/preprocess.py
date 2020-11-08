@@ -1,5 +1,5 @@
 import os
-from config import opt
+from utils.config import opt
 import csv
 
 

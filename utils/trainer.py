@@ -1,10 +1,9 @@
-import torch
 import torch.nn as nn
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader
 from data.dataset import MyDataset
 from torch.nn import functional as F
 from collections import namedtuple
-from config import opt
+from utils.config import opt
 from models import FasterRCNNVGG16, AnchorTargetCreator, ProposalTargetCreator
 from models.loss import fast_rcnn_loc_loss
 from models.utils import *

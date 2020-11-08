@@ -1,6 +1,5 @@
-import torch
 import torch.nn as nn
-from config import opt
+from utils.config import opt
 from models.utils import *
 
 class FasterRCNN(nn.Module):

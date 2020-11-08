@@ -1,11 +1,6 @@
-import os
-import torch
-import numpy as np
-from torchvision import transforms
 from torch.utils.data import DataLoader, Dataset
-from config import opt
+from utils.config import opt
 import csv
-from PIL import Image
 from data import util
 
 class Transform(object):
@@ -58,7 +53,7 @@ class MyDataset(Dataset):
 
 if __name__ == '__main__':
     train_data = MyDataset(opt)
-    train_loader = DataLoader(dataset=train_data, batch_size=1, shuffle=True, num_workers = 2)
+    train_loader = DataLoader(dataset=train_data, batch_size=1, shuffle=False, num_workers = 2)
     for i, data in enumerate(train_loader):
         # print(data)
         print(data[0].size())

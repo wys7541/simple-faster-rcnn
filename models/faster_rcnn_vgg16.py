@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from config import opt
+from utils.config import opt
 from torchvision.models import vgg16
 from models import FasterRCNN
 from models import RegionProposalNetwork

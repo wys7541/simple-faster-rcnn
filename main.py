@@ -1,4 +1,4 @@
-from config import opt
+from utils.config import opt
 
 def train(**kwargs):
     opt._parse(kwargs)
