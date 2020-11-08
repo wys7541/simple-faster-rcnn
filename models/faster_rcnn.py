@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from config import opt
+from models.utils import *
 
 class FasterRCNN(nn.Module):
     def __init__(self, extractor, rpn, head,
@@ -50,3 +51,21 @@ class FasterRCNN(nn.Module):
         else:
             self.optimizer = torch.optim.SGD(params, momentum=0.9)
         return self.optimizer
+
+    def predict(self, imgs, sizes=None):
+        '''
+        从图片中检测目标
+        :param imgs: (numpy.ndarray) CHW和RGB形式
+        :param sizes:
+        :return:
+            Args：
+                bboxes(list of float arrays)：(R, 4) (ymin, xmin, ymax, xmax)
+                labels(list of integer array): (R, ) 类别
+                scores(list of float array) (R, ) 置信度
+        '''
+        self.eval()
+        bboxes = list()
+        labels = list()
+        scores = list()
+
+        return bboxes, labels, scores

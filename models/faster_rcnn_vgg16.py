@@ -22,10 +22,10 @@ def decom_vgg16():
     if not opt.use_drop:
         del classifier[5]
         del classifier[2]
-    # freeze top4 conv
-    for layer in features[:10]:
-        for p in layer.parameters():
-            p.requires_grad = False
+    # # freeze top4 conv
+    # for layer in features[:10]:
+    #     for p in layer.parameters():
+    #         p.requires_grad = False
     return nn.Sequential(*features), classifier
 
 
@@ -52,7 +52,7 @@ class FasterRCNNVGG16(FasterRCNN):
             feat_stride=self.feat_stride
         )
         head = VGG16RoIHead(
-            n_class = n_classes,
+            n_class = n_classes + 1,    # 包括bg的总类别数
             roi_size = 7,
             spatial_scale=(1. / self.feat_stride),
             classifier=classifier

@@ -58,9 +58,9 @@ class MyDataset(Dataset):
 
 if __name__ == '__main__':
     train_data = MyDataset(opt)
-    train_loader = DataLoader(dataset=train_data, batch_size=1, shuffle=False, num_workers = 2)
+    train_loader = DataLoader(dataset=train_data, batch_size=1, shuffle=True, num_workers = 2)
     for i, data in enumerate(train_loader):
-        print(data)
+        # print(data)
         print(data[0].size())
         print(data[1].size())
         print(data[2].size())

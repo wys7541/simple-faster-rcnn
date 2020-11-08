@@ -167,7 +167,6 @@ class ProposalTargetCreator(object):
             gt_roi_loc(S, 4): 被抽样roi的gt_bbox
             gt_roi_label(S,): 分配给sample_roi的label
         '''
-        label = np.asarray([i for i in range(len(label))])
         n_bbox, _ = bbox.shape
         pos_roi_per_image = np.round(self.n_sample * self.pos_ratio)
 
@@ -177,7 +176,7 @@ class ProposalTargetCreator(object):
         gt_assignment = iou.argmax(axis=1)  # (N, )
         max_iou = iou.max(axis=1)   # (N, )
         # 为每个proposal分配标签, 这里暂不考虑background，后面将非postive统一为negtive
-        gt_roi_label = label[gt_assignment] # (N, )
+        gt_roi_label = label[gt_assignment] + 1 # (N, )
 
         # 挑选foreground rois， iou >= pos_iou_thresh
         pos_index = np.where(max_iou >= self.pos_iou_thresh)[0]

@@ -21,3 +21,4 @@ def fast_rcnn_loc_loss(pred_loc, gt_loc, gt_label, sigma):
     loc_loss /= ((gt_label >= 0).sum().float())
     return loc_loss
 
+

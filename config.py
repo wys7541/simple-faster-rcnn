@@ -11,8 +11,8 @@ class DefaultConfig(object):
     trainval_data_root = 'C:\\Users\Lenovo\Desktop\PASCAL_VOC\VOCtrainval_06-Nov-2007\VOCdevkit\VOC2007'
     sample_file = os.path.join(trainval_data_root, 'sample.csv')
     use_gpu = False     # 是否使用gpu
-    n_classes = 4       # 包括背景类的总类别数
-    classes = ['bg', 'person', 'dog', 'cat']
+    n_classes = 3       # 不包括背景类
+    classes = ['person', 'dog', 'cat']
     is_sampling = True  # 是否进行抽样
     total_samples = 90  # 总样本数
     width_size = 480    # 模型图片宽度
@@ -20,7 +20,7 @@ class DefaultConfig(object):
     mode = 'train'      # 表示当前处于训练模式
 
     # training
-    epoch = 2
+    epoch = 1
     use_drop = False    # 是否使用dropout
 
     # param for optimizer

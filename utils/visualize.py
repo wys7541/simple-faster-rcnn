@@ -2,6 +2,8 @@ import os
 import cv2
 import xml.etree.ElementTree as ET
 import random
+import numpy as np
+import matplotlib.pyplot as plt
 
 def ploy_xml_img(xml_path, img_path, save=False, save_path=None):
     '''
@@ -30,6 +32,24 @@ def ploy_xml_img(xml_path, img_path, save=False, save_path=None):
     cv2.waitKey(0)
     if save == True and save_path != None:
         cv2.imwrite(save_path, img)
+
+def loss_plot(losses):
+    '''
+    loss折线图
+    :param losses: (list of float)
+    :return:
+    '''
+    x = np.arange(len(losses))
+    y = np.ndarray(losses)
+    plt.plot(x, y)
+
+    plt.title('Loss Chart')
+    plt.xlabel('cnt')
+    plt.ylabel('loss')
+    plt.show()
+
+
+
 
 if __name__ == '__main__':
     xml_path = r'C:\Users\Lenovo\Desktop\PASCAL_VOC\VOCtrainval_06-Nov-2007\VOCdevkit\VOC2007\Annotations\000005.xml'

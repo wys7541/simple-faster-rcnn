@@ -6,8 +6,10 @@ from torch.nn import functional as F
 from collections import namedtuple
 from config import opt
 from models import FasterRCNNVGG16, AnchorTargetCreator, ProposalTargetCreator
+from models.loss import fast_rcnn_loc_loss
 from models.utils import *
-from models.loss import *
+from utils.visualize import loss_plot
+
 
 LossTuple = namedtuple('LossTuple',
                        ['rpn_loc_loss',
@@ -38,10 +40,10 @@ class FasterRCNNTrainer(nn.Module):
     def forward(self, imgs, bboxes, labels, scale):
         '''
         Faster RCNN的前向传播和计算损失
-        :param imgs:
-        :param bboxes:
-        :param labels:
-        :param scale:
+        :param imgs: tensor(num_imgs, C, H, W)
+        :param bboxes: tensor(num_imgs, R, 4)
+        :param labels: tensor(num_imgs, R)
+        :param scale: list of float
         :return:
             Args：
                 imgs(~torch.autograd.Variable)：批量的图片
@@ -136,9 +138,13 @@ if __name__ == '__main__':
     train_loader = DataLoader(dataset=train_data, batch_size=1, shuffle=False, num_workers = 2)
     faster_rcnn = FasterRCNNVGG16()
     trainer = FasterRCNNTrainer(faster_rcnn)
-    print('model construct completed')
+    loss_list = list()
+    print('model construct completed!')
+
     for epoch in range(opt.epoch):
         for ii, (img, bbox, label, scale) in enumerate(train_loader):
             scale = [scale[0].numpy()[0], scale[1].numpy()[0]]
             losses = trainer.train_step(img, bbox, label, scale)
-            print(losses.total_loss)
+            loss_list.append(losses.total_loss)
+            print("losses.total_loss:", losses.total_loss)
+    loss_plot(loss_list)

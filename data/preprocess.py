@@ -18,11 +18,11 @@ def data_sampling():
         writer = csv.writer(f)
         cnt = 0
         # 各个类别依次遍历
-        for i in range(1, len(opt.classes)):
+        for i in range(0, len(opt.classes)):
             class_name = opt.classes[i]
             class_txt_name = class_name + '_trainval.txt'
             class_txt_path = os.path.join(txtfilepath, class_txt_name)
-
+            # 每个类别取total_samples/n_classes个样本
             with open(class_txt_path, 'r', encoding='utf-8') as txt:
                 line = txt.readline()
                 while line:
@@ -34,7 +34,7 @@ def data_sampling():
                         # print(id, flag)
                         writer.writerow([cnt, class_name, img_path, xml_path])
                         cnt += 1
-                    if cnt >= i * (opt.total_samples / (opt.n_classes - 1)):
+                    if cnt >= (i + 1) * (opt.total_samples / opt.n_classes):
                         break
                     line = txt.readline()
                 txt.close()
