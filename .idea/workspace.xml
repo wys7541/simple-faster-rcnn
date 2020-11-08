@@ -21,14 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="77228925-4810-4fa4-8235-a9d47c2339eb" name="Default Changelist" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/preprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/data/preprocess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/faster_rcnn.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/faster_rcnn.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/faster_rcnn_vgg16.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/faster_rcnn_vgg16.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/region_proposal_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/region_proposal_network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/trainer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/visualize.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/visualize.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +225,7 @@
       <workItem from="1604712250867" duration="13848000" />
       <workItem from="1604749377923" duration="2916000" />
       <workItem from="1604805440242" duration="3832000" />
-      <workItem from="1604821009850" duration="7532000" />
+      <workItem from="1604821009850" duration="7686000" />
     </task>
     <task id="LOCAL-00001" summary="Establish project directory structure">
       <created>1603845726757</created>
@@ -304,7 +297,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604825165960</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="update">
+      <created>1604828830015</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1604828830015</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,22 +344,22 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="463" y="123" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1604581902684" />
-    <state width="1028" height="253" key="GridCell.Tab.0.bottom" timestamp="1604828045217">
+    <state width="1028" height="140" key="GridCell.Tab.0.bottom" timestamp="1604828819864">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1028" height="253" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1604828045217" />
-    <state width="1028" height="253" key="GridCell.Tab.0.center" timestamp="1604828045217">
+    <state width="1028" height="140" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1604828819864" />
+    <state width="1028" height="140" key="GridCell.Tab.0.center" timestamp="1604828819864">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1028" height="253" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1604828045217" />
-    <state width="1028" height="253" key="GridCell.Tab.0.left" timestamp="1604828045217">
+    <state width="1028" height="140" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1604828819864" />
+    <state width="1028" height="140" key="GridCell.Tab.0.left" timestamp="1604828819864">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1028" height="253" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1604828045217" />
-    <state width="1028" height="253" key="GridCell.Tab.0.right" timestamp="1604828045217">
+    <state width="1028" height="140" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1604828819864" />
+    <state width="1028" height="140" key="GridCell.Tab.0.right" timestamp="1604828819864">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1028" height="253" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1604828045217" />
+    <state width="1028" height="140" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1604828819864" />
     <state width="1028" height="245" key="GridCell.Tab.1.bottom" timestamp="1604827052617">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -415,7 +415,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/simple_faster_rcnn$dataset.coverage" NAME="dataset Coverage Results" MODIFIED="1604808348178" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data" />
     <SUITE FILE_PATH="coverage/simple_faster_rcnn$visualize.coverage" NAME="visualize Coverage Results" MODIFIED="1603943199273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
-    <SUITE FILE_PATH="coverage/simple_faster_rcnn$preprocess.coverage" NAME="preprocess Coverage Results" MODIFIED="1604828045206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data" />
+    <SUITE FILE_PATH="coverage/simple_faster_rcnn$preprocess.coverage" NAME="preprocess Coverage Results" MODIFIED="1604828819849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data" />
     <SUITE FILE_PATH="coverage/simple_faster_rcnn$main.coverage" NAME="main Coverage Results" MODIFIED="1603870619647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/simple_faster_rcnn$utils.coverage" NAME="utils Coverage Results" MODIFIED="1604239656862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/models" />
     <SUITE FILE_PATH="coverage/simple_faster_rcnn$test.coverage" NAME="test Coverage Results" MODIFIED="1603890916032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

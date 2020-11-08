@@ -46,6 +46,7 @@ def loss_plot(losses):
     plt.title('Loss Chart')
     plt.xlabel('cnt')
     plt.ylabel('loss')
+    plt.savefig('loss.jpg')
     plt.show()
 
 
