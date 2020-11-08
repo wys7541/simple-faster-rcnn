@@ -8,7 +8,7 @@ class DefaultConfig(object):
     '''
     # data
     # 训练集和验证集存放路径
-    trainval_data_root = 'C:\\Users\Lenovo\Desktop\PASCAL_VOC\VOCtrainval_06-Nov-2007\VOCdevkit\VOC2007'
+    trainval_data_root = '/data/Matt/MyTestModel/simple-faster-rcnn/data/voc/VOCdevkit/VOC2007'
     sample_file = os.path.join(trainval_data_root, 'sample.csv')
     use_gpu = False     # 是否使用gpu
     n_classes = 3       # 不包括背景类

@@ -9,9 +9,9 @@ def data_sampling():
     抽取小样本的voc数据集用于实验
     :return: 返回生成的文件路径
     '''
-    xmlfilepath = opt.trainval_data_root + '\Annotations'
-    txtfilepath = opt.trainval_data_root + '\ImageSets\Main'
-    imgfilepath = opt.trainval_data_root + '\JPEGImages'
+    xmlfilepath = opt.trainval_data_root + '/Annotations'
+    txtfilepath = opt.trainval_data_root + '/ImageSets/Main'
+    imgfilepath = opt.trainval_data_root + '/JPEGImages'
     sample_file = opt.sample_file
     # 逐行写入 序号 类别 img xml
     with open(sample_file, 'w', newline='') as f:
